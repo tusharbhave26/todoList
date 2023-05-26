@@ -1,0 +1,7 @@
+# Node module files
+node_modules
+
+# Earlier files
+date.js
+weekend.html
+weekday.html
