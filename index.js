@@ -1,7 +1,8 @@
-const express = require("express")
-const bodyParser = require("body-parser")
-const mongoose = require("mongoose")
-const _ = require("lodash")
+require('dotenv').config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const _ = require("lodash");
 const app = express()
 const PORT = process.env.PORT || 3000
 
@@ -12,10 +13,10 @@ app.use(express.static("public"))
 
 main().catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb+srv://admin-tushar:Test123@cluster0.yqfmwk6.mongodb.net/todolistDB',
-  {useUnifiedTopology:true, 
+  await mongoose.connect(process.env.MONGO_URI,  
+   {useUnifiedTopology:true, 
    useNewUrlParser: true});
-  console.log("Connected")
+    console.log("Connected")
 };
 
 const itemSchema = new mongoose.Schema({
@@ -87,16 +88,11 @@ Lists.findOne({name:customRouteName}).then(function(foundlist){
         // Show an existing list
 
         res.render("list", {listTitle: foundlist.name, newlistitem: foundlist.items})
-
-        
-
+        res.redirect("/" + customRouteName)
     }
 }).catch(function(err){
     console.log(err)
-});
-
-   
-   
+});   
 
 })
 
